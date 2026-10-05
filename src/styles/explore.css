@@ -9,31 +9,112 @@
   min-height: 100vh;
 }
 
-/* ---------- Hero (full-bleed image + language-style text) ---------- */
+/* ---------- Hero (full-bleed image + language-style two-column layout) ---------- */
 .explore-hero {
   position: relative;
-  min-height: 700px;
-  display: flex;
-  align-items: center;
-  background-image: var(--explore-img);
-  background-position: center;
-  background-size: cover;
+  min-height: 760px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  align-items: start;
+  background: var(--charcoal);
+  overflow: hidden;
+}
+.explore-hero__image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--explore-img) center / cover no-repeat;
+  filter: sepia(0.42) saturate(0.95) contrast(1.05) brightness(0.92);
 }
 .explore-hero::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   background:
-    linear-gradient(90deg, rgba(19, 10, 5, 0.94) 0%, rgba(19, 10, 5, 0.78) 30%, rgba(19, 10, 5, 0.3) 58%, rgba(19, 10, 5, 0) 78%),
-    linear-gradient(0deg, rgba(19, 10, 5, 0.6) 0%, rgba(19, 10, 5, 0) 32%);
+    linear-gradient(90deg, rgba(19, 10, 5, 0.94) 0%, rgba(19, 10, 5, 0.78) 36%, rgba(19, 10, 5, 0.32) 60%, rgba(19, 10, 5, 0) 80%),
+    linear-gradient(0deg, rgba(19, 10, 5, 0.68) 0%, rgba(19, 10, 5, 0) 24%);
 }
-.explore-hero__content {
+
+/* Stylized glyph badge — mirrors the Language page hero art */
+.explore-hero__art {
   position: relative;
   z-index: 2;
-  max-width: 880px;
-  padding: clamp(70px, 10vw, 120px) var(--c-pad) 0;
-  color: var(--white);
+  margin-top: clamp(60px, 8vw, 90px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 210px;
+  height: 210px;
+  color: var(--red);
+  pointer-events: none;
 }
+.explore-hero__art::before,
+.explore-hero__art::after {
+  content: "";
+  position: absolute;
+  inset: 50%;
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(201, 138, 75, .24);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.explore-hero__art::after { width: 300px; height: 300px; }
+.explore-hero__art span {
+  position: relative;
+  z-index: 1;
+  font: 500 clamp(90px, 16vw, 130px)/.8 var(--serif);
+  color: rgba(201, 138, 75, .78);
+}
+.explore-hero__art small {
+  position: relative;
+  z-index: 1;
+  margin-top: 20px;
+  font: 500 9px "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  letter-spacing: .24em;
+  color: #8e745e;
+}
+
+/* Digital Heritage: muted-gold glyph + a subtle pulse dot (digital cue) */
+.explore-page--digital .explore-hero__art::before,
+.explore-page--digital .explore-hero__art::after { border-color: rgba(212, 159, 94, .26); }
+.explore-page--digital .explore-hero__art span { color: rgba(212, 159, 94, .84); }
+.explore-page--digital .explore-hero__dot {
+  background: #d49a6a;
+  box-shadow: 0 0 0 0 rgba(212, 159, 94, .55);
+}
+.explore-hero__dot {
+  position: absolute;
+  z-index: 2;
+  top: 16px;
+  right: -22px;
+  width: 11px;
+  height: 11px;
+  background: var(--red);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(201, 138, 75, .55);
+  animation: pulse 1.9s ease-out infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(201, 138, 75, .55); opacity: 1; }
+  60% { box-shadow: 0 0 0 11px rgba(201, 138, 75, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(201, 138, 75, 0); opacity: 0; }
+}
+
+/* Corner weave ornament — matches the Community page texture */
+.explore-hero .c-ornament--corner {
+  z-index: 2;
+  left: 0;
+  bottom: 0;
+  width: clamp(70px, 9vw, 140px);
+  height: clamp(70px, 9vw, 140px);
+  opacity: 0.72;
+  -webkit-mask-image: linear-gradient(45deg, #000 40%, transparent 85%);
+          mask-image: linear-gradient(45deg, #000 40%, transparent 85%);
+}
+
 .explore-back {
   display: inline-block;
   color: #b9a08a;
@@ -54,6 +135,12 @@
   text-transform: uppercase;
   color: var(--red);
   margin-bottom: 22px;
+}
+.explore-hero__content {
+  grid-column: 2;
+  z-index: 2;
+  padding: clamp(70px, 9vw, 100px) 0 0;
+  color: var(--white);
 }
 .explore-hero h1 {
   font-family: var(--serif);
@@ -195,11 +282,17 @@
 
 /* ---------- Responsive ---------- */
 @media(max-width: 900px) {
-  .explore-hero { min-height: 640px; }
-  .explore-hero__content { padding: 44px 24px 0; }
+  .explore-hero { min-height: 700px; }
+  .explore-hero__art { margin: clamp(40px, 6vw, 56px) auto 0; }
+  .explore-hero__content { grid-column: 1; padding: clamp(230px, 16vw, 270px) 24px 0; }
+  .explore-hero__dot { right: auto; left: 50%; transform: translateX(-50%); top: 14px; }
   .explore-feature-grid { grid-template-columns: 1fr; }
   .explore-intro, .explore-features, .explore-preserve { padding-left: 24px; padding-right: 24px; }
 }
 @media(max-width: 600px) {
   .explore-sources { flex-direction: column; gap: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explore-hero__dot { animation: none; opacity: 1; }
 }

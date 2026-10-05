@@ -63,21 +63,29 @@ const pages = {
 // Section metadata that mirrors the Language page layout.
 const sectionMeta = {
   today: {
+    glyph: "C",
+    glyphLabel: "COMMUNITY TODAY",
     intro: { label: "A LIVING COMMUNITY", title: ["Culture that", "keeps moving."] },
     features: { kicker: "01 · TODAY'S EXPRESSIONS", title: ["How heritage", "lives today."] },
     preserve: { kicker: "A LIVING HERITAGE" },
   },
   digital: {
+    glyph: "D",
+    glyphLabel: "DIGITAL HERITAGE",
     intro: { label: "THE DIGITAL ARCHIVE", title: ["Explore the", "archive."] },
     features: { kicker: "01 · ARCHIVE COLLECTIONS", title: ["What the", "archive holds."] },
     preserve: { kicker: "DIGITAL MEMORY" },
   },
   identity: {
+    glyph: "I",
+    glyphLabel: "IDENTITY",
     intro: { label: "A PEOPLE'S IDENTITY", title: ["The people", "of Kalinga."] },
     features: { kicker: "01 · IDENTITY", title: ["What makes", "a people."] },
     preserve: { kicker: "SHARED IDENTITY" },
   },
   land: {
+    glyph: "L",
+    glyphLabel: "THE LAND",
     intro: { label: "THE LAND", title: ["Land, rivers", "and belonging."] },
     features: { kicker: "01 · LANDSCAPE", title: ["What grounds", "a people."] },
     preserve: { kicker: "PLACE & MEMORY" },
@@ -90,8 +98,15 @@ export default function ExplorePage({ type }) {
   const back = type === "identity" || type === "land" ? "#/community" : "#";
 
   return (
-    <div className="explore-page">
+    <div className={`explore-page explore-page--${type}`}>
       <section className="explore-hero" style={{ "--explore-img": `url("${data.image}")` }}>
+        <div className="explore-hero__image" aria-hidden="true" />
+        <div className="explore-hero__art" aria-hidden="true">
+          <span>{meta.glyph}</span>
+          {type === "digital" && <i className="explore-hero__dot" aria-hidden="true" />}
+          <small>{meta.glyphLabel}</small>
+        </div>
+        <div className="c-ornament c-ornament--corner" aria-hidden="true" />
         <div className="explore-hero__content">
           <a className="explore-back" href={back}>← Back</a>
           <p className="explore-kicker">{data.eyebrow}</p>

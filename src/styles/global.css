@@ -13,6 +13,7 @@
   --sans: "Inter", system-ui, sans-serif;
   --panel: #2a1a10;
   --nav-h: 56px;
+  --weave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='46' viewBox='0 0 46 46' fill='none' stroke='%23c98a4b' stroke-width='1.1'%3E%3Cpath d='M23 2 44 23 23 44 2 23Z'/%3E%3Cpath d='M23 10 36 23 23 36 10 23Z'/%3E%3Cpath d='M23 17 29 23 23 29 17 23Z' fill='%23c98a4b' fill-opacity='.5'/%3E%3Cpath d='M0 0 10 10M46 0 36 10M0 46 10 36M46 46 36 36'/%3E%3C/svg%3E");
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,6 +44,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------- Shared bits ---------- */
 .rule { display: block; width: 36px; height: 3px; background: var(--red); margin-bottom: 20px; }
+.c-ornament { position: absolute; pointer-events: none; background: var(--weave) 0 0 / 46px 46px; }
 .btn {
   display: inline-flex; align-items: center; gap: 22px; padding: 13px 22px;
   border: 1px solid currentColor; font-family: var(--serif);
