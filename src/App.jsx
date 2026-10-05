@@ -4,11 +4,24 @@ import Hero from "./components/Hero.jsx";
 import Section from "./components/Section.jsx";
 import Topics from "./components/Topics.jsx";
 import CommunityPage from "./components/CommunityPage.jsx";
+import HistoryPage from "./components/HistoryPage.jsx";
+import LanguagePage from "./components/LanguagePage.jsx";
 import Footer from "./components/Footer.jsx";
+import ExplorePage from "./components/ExplorePage.jsx";
 import { intro } from "./data/content.js";
 
-// Tiny hash router: "#/community" shows The Community page, anything else shows the home page.
-const getRoute = () => (window.location.hash.startsWith("#/community") ? "community" : "home");
+// Tiny hash router: community and history are dedicated pages; anything else shows the home page.
+const getRoute = () => {
+  const hash = window.location.hash;
+  if (hash.startsWith("#/community")) return "community";
+  if (hash.startsWith("#/history")) return "history";
+  if (hash.startsWith("#/language")) return "language";
+  if (hash.startsWith("#/today")) return "today";
+  if (hash.startsWith("#/digital")) return "digital";
+  if (hash.startsWith("#/identity")) return "identity";
+  if (hash.startsWith("#/land")) return "land";
+  return "home";
+};
 
 export default function App() {
   const [route, setRoute] = useState(getRoute);
@@ -55,6 +68,18 @@ export default function App() {
       <main>
         {route === "community" ? (
           <CommunityPage />
+        ) : route === "history" ? (
+          <HistoryPage />
+        ) : route === "language" ? (
+          <LanguagePage />
+        ) : route === "today" ? (
+          <ExplorePage type="today" />
+        ) : route === "digital" ? (
+          <ExplorePage type="digital" />
+        ) : route === "identity" ? (
+          <ExplorePage type="identity" />
+        ) : route === "land" ? (
+          <ExplorePage type="land" />
         ) : (
           <>
             <Hero />
